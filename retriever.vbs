@@ -1,3 +1,11 @@
+' File downloader with Microsoft VBScript
+'
+' Usage:
+'   wscript.exe retriever.vbs [URL] [local path with filename] [options]
+'
+' Options:
+'   /p - Prompt for confirmation before running download task
+
 Set objArgs = Wscript.Arguments
 sourceURL = objArgs(0)
 path = objArgs(1)
@@ -12,6 +20,7 @@ End If
 
 Dim xHttp: Set xHttp = createobject("MSXML2.ServerXMLHTTP")
 Dim bStrm: Set bStrm = createobject("Adodb.Stream")
+' Workaround for certificates issue: see https://stackoverflow.com/a/9238141
 xHttp.setOption 2, 13056
 xHttp.Open "GET", sourceURL, False
 xHttp.Send
